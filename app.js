@@ -4,8 +4,11 @@ console.log('App is connected');
 const barbie = {
     name: 'Barbie',
     wardrobe: [],
-    wallet: 0
+    wallet: 0,
+    rental: []
 }
+
+
 
 class Career {
     constructor(name, description, income, id){
@@ -99,6 +102,18 @@ barbie.render = () => {
         })).join('')
     }</ul>
     </div>
+    <div><h2>Rental Contains: </h2>
+    <ul>${
+        barbie.rental.map((item => {
+            return `<li>
+            ${barbie.name} has bought a ${item.type} 
+            ${item.name} locateed in ${item.location}
+            that costs ${item.price} and adds ${item.income} to ${barbie.name}'s income  
+            </li>`
+        })).join('')
+        
+    }</ul>
+    </div>
 `;
 }
 
@@ -145,3 +160,32 @@ rbButton.addEventListener('click', () => {
         alert('Stop trippin you know you aint got it like that');
     }
 })
+
+class RentalProperty {
+    constructor(name, type, price, location, income) {
+        this.name = name;
+        this.type = type;
+        this.price = price;
+        this.location = location;
+        this.income = income;
+    }
+}
+
+const condo = new RentalProperty('Condo', 'Rental', 50000, 'Miami', 500)
+
+const condoBtn = document.getElementById('condo')
+
+condoBtn.addEventListener('click', () => {
+    if(barbie.wallet >= condo.price){
+        barbie.rental.push(condo);
+        barbie.wallet -= condo.price;
+        barbie.career.income += condo.income
+        barbie.render();
+        // WE updated the wardrobe that belongs to barbie so the object was changed
+    // the object control the information that is visible to us on the screen
+    // I want to re-render the content so that i can see the updated information in the browser
+    } else {
+        alert('Stop trippin you know you aint got it like that');
+    }
+})
+
