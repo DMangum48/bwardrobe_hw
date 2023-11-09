@@ -5,7 +5,8 @@ const barbie = {
     name: 'Barbie',
     wardrobe: [],
     wallet: 0,
-    rental: []
+    rental: [],
+    garage: []
 }
 
 
@@ -114,6 +115,18 @@ barbie.render = () => {
         
     }</ul>
     </div>
+    <div><h2>Garage Contains: </h2>
+    <ul>${
+        barbie.garage.map((item => {
+            return `<li>
+            ${barbie.name} has bought a ${item.color} ${item.type} 
+            ${item.name} 
+            that costs ${item.price} and deducts ${item.income} from ${barbie.name}'s income  
+            </li>`
+        })).join('')
+        
+    }</ul>
+    </div>
 `;
 }
 
@@ -204,5 +217,31 @@ sellBtn.addEventListener('click', () => {
 
     } else {
         alert('You have NOTHING to sell bro')
+    }
+})
+
+class Car {
+    constructor(name, type, price, color, income){
+        this.name = name
+        this.type = type
+        this.price = price
+        this.color = color
+        this.income = income
+    }
+
+}
+
+const tesla = new Car('Tesla', 'Electric', 50000, 'red', -150)
+
+const teslaBtn = document.getElementById('tesla')
+
+teslaBtn.addEventListener('click', () => {
+    if(barbie.wallet >= tesla.price) {
+        barbie.garage.push(tesla);
+        barbie.wallet -= tesla.price;
+        barbie.career.income += tesla.income
+        barbie.render()
+    } else {
+        alert('Stop trippin you know you aint got it like that')
     }
 })
