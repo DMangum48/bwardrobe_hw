@@ -189,3 +189,20 @@ condoBtn.addEventListener('click', () => {
     }
 })
 
+const sellBtn = document.getElementById('sell')
+
+
+
+sellBtn.addEventListener('click', () => {
+    if(barbie.wardrobe.length > 0) {
+    const randomIndex = randomization(barbie.wardrobe.length)
+    const itemToSell = barbie.wardrobe[randomIndex]
+    barbie.wardrobe.splice(randomIndex, 1)
+    const sellingPrice = (Math.floor(Math.random()* ((200 - 70) + 1) + 70)) * 0.01
+    barbie.wallet += Math.floor(sellingPrice * itemToSell.price)
+    barbie.render();
+
+    } else {
+        alert('You have NOTHING to sell bro')
+    }
+})
